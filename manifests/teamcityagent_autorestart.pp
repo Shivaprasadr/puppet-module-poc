@@ -1,15 +1,14 @@
-class poc::teamcityagent(
+class poc::teamcityagent_autorestart(
 			  $run,
- 			  $ensure = running,
- 			  $enable = true,
 			){
-  			  if ($run == 'true'){ service{'TCBuildAgent':
-           		   	   			ensure=>$ensure,
-   		   	           			enable=>$enable,
+  			  if $run == true { service{'TCBuildAgent':
+           		   	   			ensure => 'running',
+   		   	           			enable => true,
 			  	  		       }			  
+						notify {" ran as the varriable run was ${run}": }
 			   		      }
-			  elsif ($run == 'false'){
-						   notify {'did not run anything as the $run was ${run}': }
+			  elsif $run == false {
+						   notify {"did not run anything as the variable run was ${run}": }
 						  }
 			  }
 
